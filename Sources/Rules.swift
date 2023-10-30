@@ -2147,8 +2147,8 @@ public struct _FormatRules {
                     formatter.removeToken(at: closingBraceIndex - 1)
                 }
             }
-            if formatter.options.allmanBraces {
-                // Implement Allman-style braces, where opening brace appears on the next line
+            if formatter.options.allmanBraces, !formatter.isStartOfClosure(at: i) {
+                // Implement Allman-style braces, where opening brace appears on the next line except closures
                 switch formatter.last(.nonSpace, before: i) ?? .space("") {
                 case .identifier, .keyword, .endOfScope, .number,
                      .operator("?", .postfix), .operator("!", .postfix):
